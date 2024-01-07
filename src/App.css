@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.map-container {
+  position: absolute; /* 親要素を基準に配置する */
+  top: 50%; /*親要素の上端から50%の位置に配置 */
+  left: 50%; /* 親要素の左端から50%の位置に配置 */
+  transform: translate(-50%, -50%); /* 要素自体を中央に寄せる */
+  width: 80%; /* 親要素の80%の幅を持つ */
+  height: 80vh; /* 親要素の80%の高さを持つ */
+}
