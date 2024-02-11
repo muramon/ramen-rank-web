@@ -9,9 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import { CardActionArea } from '@mui/material';
 import CardItem from './CardItem';
 import Image from '../images/ramen1.jpg'; // 画像のパスを適切に指定する
+import { Container, Typography, CssBaseline } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import Appbar from './Appbar';
 
 function ChangeMapCenter({ position }: { position: LatLngExpression }) {
     const map = useMap()
@@ -19,7 +28,6 @@ function ChangeMapCenter({ position }: { position: LatLngExpression }) {
   
     return null
   }
-
 
 function Detail() {
     const { id: currentId } = useParams();
@@ -49,7 +57,7 @@ function Detail() {
           console.log('ID changed:', currentId);
           // Update the previous id
           prevIdRef.current = currentId;
-        fetch(`http://localhost:8001/detail?id=${currentId}`, { method: "GET"})
+        fetch(`http://localhost:5001/detail?id=${currentId}`, { method: "GET"})
                 .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -76,7 +84,7 @@ function Detail() {
       const [shop, setShop] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
 
       useEffect(() => {
-        fetch(`http://localhost:8001/title?id=${currentId}`, { method: "GET"})
+        fetch(`http://localhost:5001/title?id=${currentId}`, { method: "GET"})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
@@ -96,7 +104,7 @@ function Detail() {
     const [loading_2, setLoading_2] = useState(true);
     const [error_2, setError_2] = useState(null);
     useEffect(() => {
-        fetch(`http://localhost:8001/recommend?title=${contents.title}`, { method: "GET"})
+        fetch(`http://localhost:5001/recommend?title=${contents.title}`, { method: "GET"})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
@@ -127,11 +135,75 @@ function Detail() {
     }
 
   return (
+    <>
+    <Appbar/>
+    <Container component="main" maxWidth="lg">
+      <CssBaseline />
+      <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+    <Typography
+      component="h1"
+      variant="h4"
+      align="center"
+      color="text.primary"
+      gutterBottom
+      >
+      {shop[0].name}
+    </Typography>
+    {shop[0].img}
+    <div>
+    <img src={Image} alt="Image" />
+    </div>
+
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              店名
+            </TableCell>
+            <TableCell align="left">{shop[0].name}</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row">
+              住所
+            </TableCell>
+            <TableCell align="left">{detail.address}</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row">
+              営業時間
+            </TableCell>
+            <TableCell align="left">{detail.operationg_hours}</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row">
+              店休日
+            </TableCell>
+            <TableCell align="left">{detail.shop_holidays}</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row">
+              SNS
+            </TableCell>
+            <TableCell align="left">{detail.sns}</TableCell>
+            </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+
     <div className="map-container">
     <MapContainer
       center={[detail.latitude, detail.longitude]} // 初期のマップの中心座標
       zoom={15} // 初期のズームレベル
-      style={{ width: '60%', height: '400px' }} // マップのサイズを設定
+      style={{ width: '100%', height: '100%' }} // マップのサイズを設定
     >
     <ChangeMapCenter position={center} />
       <TileLayer
@@ -144,13 +216,12 @@ function Detail() {
           </Popup>
         </Marker>
     </MapContainer>
-    {shop[0].name}
-    {shop[0].score}
-    {shop[0].img}
+    </div>
+
     <br></br>
-    <p>{detail.address}</p>
-    <p>{detail.latitude}</p>
-    <p>Recommended</p>
+    
+
+    <p>{shop[0].name}が気になった方におすすめのラーメン店10選！</p>
     <Grid container spacing={3}>
       {recommend.map((item, index) => (
         <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
@@ -164,6 +235,8 @@ function Detail() {
       ))}
     </Grid>
     </div>
+    </Container>
+    </>
   );
 }
 

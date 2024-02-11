@@ -21,9 +21,9 @@ const CardItem: React.FC<CardItemProps> = ({ title, content, img }) => {
       />
       <CardContent>
         <Typography variant="h6">{title}</Typography>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           {content}
-        </Typography>
+        </Typography> */}
       </CardContent>
     </Card>
   );

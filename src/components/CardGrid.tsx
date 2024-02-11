@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import CardItem from './CardItem';
 import Image from '../images/ramen1.jpg'; // 画像のパスを適切に指定する
+import { Container } from '@mui/material';
 import { CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +25,7 @@ const CardGrid: React.FC = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     useEffect(() => {
-        fetch("http://localhost:8001/", { method: "GET"})
+        fetch("http://localhost:5001/", { method: "GET"})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
@@ -54,6 +55,7 @@ const CardGrid: React.FC = () => {
     }
 
   return (
+    <Container component="main" maxWidth="lg">
     <Grid container spacing={3}>
       {data.map((item, index) => (
         <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
@@ -66,6 +68,7 @@ const CardGrid: React.FC = () => {
         </Grid>
       ))}
     </Grid>
+    </Container>
   );
 };
 
