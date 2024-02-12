@@ -17,7 +17,7 @@ const CardItem: React.FC<CardItemProps> = ({ title, content, img }) => {
       <CardMedia
         sx={{ height: 140 }}
         image={img}
-        title="green iguana"
+        title="ラーメン検索サイトMENSAKU"
       />
       <CardContent>
         <Typography variant="h6">{title}</Typography>

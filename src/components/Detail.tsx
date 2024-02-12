@@ -17,10 +17,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Appbar from './Appbar';
+import Link from '@mui/material/Link';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
 
 function ChangeMapCenter({ position }: { position: LatLngExpression }) {
     const map = useMap()
@@ -99,41 +101,69 @@ function Detail() {
               )
           } ,[currentId]);
 
-  
-    const [recommend, setRecommend] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
-    const [loading_2, setLoading_2] = useState(true);
-    const [error_2, setError_2] = useState(null);
-    useEffect(() => {
-        fetch(`http://localhost:5001/recommend?title=${contents.title}`, { method: "GET"})
-              .then(res => {
-                if (!res.ok) {
-                  throw new Error(`HTTP error! Status: ${res.status}`);
+        
+
+    
+      const [recommend, setRecommend] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
+      const [loading_2, setLoading_2] = useState(true);
+      const [error_2, setError_2] = useState(null);
+      useEffect(() => {
+          fetch(`http://localhost:5001/recommend?title=${contents.title}`, { method: "GET"})
+                .then(res => {
+                  if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                  }
+                  return res.json();
                 }
-                return res.json();
-              }
-              ).then(data => {
-                console.log(data)
-                setLoading_2(false);
-                console.log(loading_2)
-                setRecommend(data);
-                console.log(recommend)
-              },
-              (error_2) => {
-                setLoading_2(true);
-                setError_2(error_2);
-                console.log(error_2)
-              }
-            )
-        } ,[currentId]);
+                ).then(data => {
+                  console.log(data)
+                  setLoading_2(false);
+                  console.log(loading_2)
+                  setRecommend(data);
+                  console.log(recommend)
+                },
+                (error_2) => {
+                  setLoading_2(true);
+                  setError_2(error_2);
+                  console.log(error_2)
+                }
+              )
+          } ,[currentId]);
 
-    if (loading_2) {
-        return <p>Loading...</p>;
-    }
+      const [shopimage, setShopimage] = useState([{"img": Image, "context": 'str'}]);
+      const [loading_3, setLoading_3] = useState(true);
+      const [error_3, setError_3] = useState(null);
+      useEffect(() => {
+          fetch(`http://localhost:8000/images?id=${currentId}`, { method: "GET"})
+                .then(res => {
+                  if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
+                  }
+                  return res.json();
+                }
+                ).then(data => {
+                  console.log(data)
+                  setLoading_3(false);
+                  console.log(loading_3)
+                  setShopimage(data);
+                  console.log(shopimage)
+                },
+                (error_3) => {
+                  setLoading_2(true);
+                  setError_2(error_3);
+                  console.log(error_3)
+                }
+              )
+          } ,[currentId]);
 
-    if (error_2) {
-        return <p>Error</p>;
-    }
+      if (loading || loading_2 || loading_3) {
+          return <p>Loading...</p>;
+      }
 
+      if (error || error_2 || error_3) {
+          return <p>Error</p>;
+      }
+      
   return (
     <>
     <Appbar/>
@@ -150,10 +180,21 @@ function Detail() {
       >
       {shop[0].name}
     </Typography>
-    {shop[0].img}
-    <div>
-    <img src={Image} alt="Image" />
-    </div>
+    <Grid container spacing={3}>
+      {shopimage.map((item, index) => (
+        <Grid item key={index} xs={12} sm={6} md={4} lg={4} direction="row" justifyContent="flex-start" alignItems="flex-start">
+          <Card>
+          <CardActionArea href={item.context}>
+          <CardMedia
+            sx={{ height: 180 }}
+            image={item.img}
+            title={item.context}
+          />
+          </CardActionArea>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
 
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -192,12 +233,11 @@ function Detail() {
             <TableCell component="th" scope="row">
               SNS
             </TableCell>
-            <TableCell align="left">{detail.sns}</TableCell>
+            <TableCell align="left"><Link href={detail.sns}>{detail.sns}</Link></TableCell>
             </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
-
 
     <div className="map-container">
     <MapContainer

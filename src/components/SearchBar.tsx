@@ -24,7 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5001/", { method: "GET"})
+    fetch("http://localhost:8000/", { method: "GET"})
           .then(res => {
             if (!res.ok) {
               throw new Error(`HTTP error! Status: ${res.status}`);
@@ -54,7 +54,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     }
 
   const handleSearch = () => {
-    fetch(`http://localhost:5001/search?query=${query}`, { method: "GET"})
+    fetch(`http://localhost:8000/search?query=${query}`, { method: "GET"})
                 .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
