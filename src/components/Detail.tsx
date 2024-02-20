@@ -86,7 +86,7 @@ function Detail() {
       const [shop, setShop] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
 
       useEffect(() => {
-        fetch(`http://localhost:5001/title?id=${currentId}`, { method: "GET"})
+        fetch(`http://localhost:8000/title?id=${currentId}`, { method: "GET"})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
@@ -108,7 +108,7 @@ function Detail() {
       const [loading_2, setLoading_2] = useState(true);
       const [error_2, setError_2] = useState(null);
       useEffect(() => {
-          fetch(`http://localhost:5001/recommend?title=${contents.title}`, { method: "GET"})
+          fetch(`http://localhost:8000/recommend?title=${contents.title}`, { method: "GET"})
                 .then(res => {
                   if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
