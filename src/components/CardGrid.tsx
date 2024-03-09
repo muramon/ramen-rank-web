@@ -28,9 +28,9 @@ const CardGrid: React.FC = () => {
       'Content-Type': 'application/json'
       // 'Authorization': `Bearer ${token}`
     })
-    
+
     useEffect(() => {
-        fetch("http://35.238.124.207/", { method: "GET",headers: headers})
+        fetch("http://35.238.124.207", { method: "GET",headers: headers})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
