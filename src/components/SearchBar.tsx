@@ -28,7 +28,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   })
 
   useEffect(() => {
-    fetch("http://35.238.124.207/", { method: "GET",
+    fetch("https://35.238.124.207", { method: "GET",
                                       headers: headers})
           .then(res => {
             if (!res.ok) {
@@ -59,7 +59,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     }
 
   const handleSearch = () => {
-    fetch(`http://35.238.124.207/search?query=${query}`, { method: "GET",
+    fetch(`https://35.238.124.207/search?query=${query}`, { method: "GET",
                                                            headers: headers})
                 .then(res => {
                 if (!res.ok) {

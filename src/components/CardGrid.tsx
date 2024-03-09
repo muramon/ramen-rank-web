@@ -30,7 +30,7 @@ const CardGrid: React.FC = () => {
     })
 
     useEffect(() => {
-        fetch("http://35.238.124.207", { method: "GET",headers: headers})
+        fetch("https://35.238.124.207", { method: "GET",headers: headers})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
