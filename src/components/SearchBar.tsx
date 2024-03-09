@@ -22,9 +22,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [error, setError] = useState(null);
   const [result, setResult] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
   const navigate = useNavigate();
+  const headers = new Headers({
+    'Content-Type': 'application/json'
+    // 'Authorization': `Bearer ${token}`
+  })
 
   useEffect(() => {
-    fetch("http://localhost:8000/", { method: "GET"})
+    fetch("http://35.238.124.207/", { method: "GET",
+                                      headers: headers})
           .then(res => {
             if (!res.ok) {
               throw new Error(`HTTP error! Status: ${res.status}`);
@@ -54,7 +59,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
     }
 
   const handleSearch = () => {
-    fetch(`http://localhost:8000/search?query=${query}`, { method: "GET"})
+    fetch(`http://35.238.124.207/search?query=${query}`, { method: "GET",
+                                                           headers: headers})
                 .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);

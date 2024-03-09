@@ -24,8 +24,13 @@ const CardGrid: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+      // 'Authorization': `Bearer ${token}`
+    })
+    
     useEffect(() => {
-        fetch("http://localhost:5001/", { method: "GET"})
+        fetch("http://35.238.124.207/", { method: "GET",headers: headers})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);

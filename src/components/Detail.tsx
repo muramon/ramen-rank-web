@@ -53,13 +53,17 @@ function Detail() {
     const [error, setError] = useState(null);
     const [center, setCenter] = useState<[number, number]>([detail.longitude, detail.latitude]);
     const navigate = useNavigate();
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+      // 'Authorization': `Bearer ${token}`
+    })
                                     
     useEffect(() => {
         if (prevIdRef.current !== currentId) {
           console.log('ID changed:', currentId);
           // Update the previous id
           prevIdRef.current = currentId;
-        fetch(`http://localhost:5001/detail?id=${currentId}`, { method: "GET"})
+        fetch(`http://35.238.124.207/detail?id=${currentId}`, { method: "GET",headers: headers})
                 .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -86,7 +90,7 @@ function Detail() {
       const [shop, setShop] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
 
       useEffect(() => {
-        fetch(`http://localhost:8000/title?id=${currentId}`, { method: "GET"})
+        fetch(`http://35.238.124.207/title?id=${currentId}`, { method: "GET",headers: headers})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
@@ -108,7 +112,7 @@ function Detail() {
       const [loading_2, setLoading_2] = useState(true);
       const [error_2, setError_2] = useState(null);
       useEffect(() => {
-          fetch(`http://localhost:8000/recommend?title=${contents.title}`, { method: "GET"})
+          fetch(`http://35.238.124.207/recommend?title=${contents.title}`, { method: "GET",headers: headers})
                 .then(res => {
                   if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -134,7 +138,7 @@ function Detail() {
       const [loading_3, setLoading_3] = useState(true);
       const [error_3, setError_3] = useState(null);
       useEffect(() => {
-          fetch(`http://localhost:8000/images?id=${currentId}`, { method: "GET"})
+          fetch(`http://35.238.124.207/images?id=${currentId}`, { method: "GET",headers: headers})
                 .then(res => {
                   if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);

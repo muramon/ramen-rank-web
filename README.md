@@ -45,3 +45,7 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 # ramen-rank-web
+
+# How to deploy
+- npm run build
+- firebase deploy
