@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# MENSAKU
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+以下のURLからアクセス可能。
+```
+https://men-saku.web.app/
+```
 
 ## Available Scripts
 

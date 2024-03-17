@@ -63,7 +63,7 @@ function Detail() {
           console.log('ID changed:', currentId);
           // Update the previous id
           prevIdRef.current = currentId;
-        fetch(`https://men-saku.com//detail?id=${currentId}`, { method: "GET",headers: headers})
+        fetch(`https://men-saku.com/detail?id=${currentId}`, { method: "GET",headers: headers})
                 .then(res => {
                 if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
