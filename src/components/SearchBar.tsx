@@ -28,7 +28,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   })
 
   useEffect(() => {
-    fetch("https://men-saku.com/", { method: "GET",
+    fetch("https://men-saku.com", { method: "GET",
                                       headers: headers})
           .then(res => {
             if (!res.ok) {

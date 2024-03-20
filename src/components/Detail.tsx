@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap  } from "react-leaflet";
-import Leaflet, { LatLngExpression } from "leaflet";
+import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import '../App.css';
 import { useLocation, useParams } from "react-router-dom"
@@ -20,16 +19,12 @@ import Paper from '@mui/material/Paper';
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import Appbar from './Appbar';
+import DisplayMap from './DisplayMap';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 
-function ChangeMapCenter({ position }: { position: LatLngExpression }) {
-    const map = useMap()
-    map.panTo(position)
-  
-    return null
-  }
+
 
 function Detail() {
     const { id: currentId } = useParams();
@@ -51,7 +46,7 @@ function Detail() {
     const [detail, setDetail] = useState({"address": "0", "latitude": 36, "longitude": 139, "operationg_hours": "ss", "shop_holidays": "dd", "sns": "X"});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [center, setCenter] = useState<[number, number]>([detail.longitude, detail.latitude]);
+    // const [center, setCenter] = useState<[number, number]>([detail.longitude, detail.latitude]);
     const navigate = useNavigate();
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -75,9 +70,9 @@ function Detail() {
                 setLoading(false);
                 // console.log(loading)
                 setDetail(data);
-                setCenter([data.longitude, data.latitude]);
-                console.log(center)
-                console.log(detail)
+                // setCenter([data.longitude, data.latitude]);
+                // console.log(center)
+                // console.log(detail)
                 },
                 (error) => {
                 setLoading(true);
@@ -90,7 +85,7 @@ function Detail() {
       const [shop, setShop] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
 
       useEffect(() => {
-        fetch(`https://men-saku.com//title?id=${currentId}`, { method: "GET",headers: headers})
+        fetch(`https://men-saku.com/title?id=${currentId}`, { method: "GET",headers: headers})
               .then(res => {
                 if (!res.ok) {
                   throw new Error(`HTTP error! Status: ${res.status}`);
@@ -112,7 +107,7 @@ function Detail() {
       const [loading_2, setLoading_2] = useState(true);
       const [error_2, setError_2] = useState(null);
       useEffect(() => {
-          fetch(`https://men-saku.com//recommend?title=${contents.title}`, { method: "GET",headers: headers})
+          fetch(`https://men-saku.com/recommend?title=${contents.title}`, { method: "GET",headers: headers})
                 .then(res => {
                   if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -138,7 +133,7 @@ function Detail() {
       const [loading_3, setLoading_3] = useState(true);
       const [error_3, setError_3] = useState(null);
       useEffect(() => {
-          fetch(`https://men-saku.com//images?id=${currentId}`, { method: "GET",headers: headers})
+          fetch(`https://men-saku.com/images?id=${currentId}`, { method: "GET",headers: headers})
                 .then(res => {
                   if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -243,24 +238,7 @@ function Detail() {
       </Table>
     </TableContainer>
 
-    <div className="map-container">
-    <MapContainer
-      center={[detail.latitude, detail.longitude]} // 初期のマップの中心座標
-      zoom={15} // 初期のズームレベル
-      style={{ width: '100%', height: '100%' }} // マップのサイズを設定
-    >
-    <ChangeMapCenter position={center} />
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" // OpenStreetMapのタイルURL
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <Marker position={center}>
-          <Popup>
-            {shop[0].name}
-          </Popup>
-        </Marker>
-    </MapContainer>
-    </div>
+    <DisplayMap latitude={detail.latitude} longitude={detail.longitude} shopname={shop[0].name}/>
 
     <br></br>
     
