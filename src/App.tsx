@@ -9,7 +9,7 @@ import RamenDiningIcon from '@mui/icons-material/RamenDining';
 const App: React.FC = () => {
   const handleSearch = (query: string) => {
     // ここで検索ロジックを追加するか、サーバーに検索クエリを送信します
-    console.log(`Searching for: ${query}`);
+    // console.log(`Searching for: ${query}`);
   };
   
   return (

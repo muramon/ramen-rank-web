@@ -38,15 +38,15 @@ const CardGrid: React.FC = () => {
                 return res.json();
               }
               ).then(data => {
-                console.log(data)
+                // console.log(data)
                 setLoading(false);
-                console.log(loading)
+                // console.log(loading)
                 setData(data);
               },
               (error) => {
                 setLoading(true);
                 setError(error);
-                console.log(error)
+                // console.log(error)
               }
             )
         } ,[]);
