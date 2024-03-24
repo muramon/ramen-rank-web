@@ -43,6 +43,7 @@ function Detail() {
                                                 title: string, 
                                                 content: string, 
                                                 img: string});
+    const [shop, setShop] = useState([{"id": contents.id, "name": contents.title, "score": contents.content, "img": contents.img}]);
     const [detail, setDetail] = useState({"address": "0", "latitude": 36, "longitude": 139, "operationg_hours": "ss", "shop_holidays": "dd", "sns": "X"});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -80,34 +81,26 @@ function Detail() {
                 // console.log(error)
                 }
             )
+
+          fetch(`https://men-saku.com/title?id=${currentId}`, { method: "GET",headers: headers})
+          .then(res => {
+            if (!res.ok) {
+              throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            return res.json();
+          }
+          ).then(data => {
+            setShop(data);
+          }
+          )
         }} ,[currentId]);
-
-      const [shop, setShop] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
-
-      useEffect(() => {
-        fetch(`https://men-saku.com/title?id=${currentId}`, { method: "GET",headers: headers})
-              .then(res => {
-                if (!res.ok) {
-                  throw new Error(`HTTP error! Status: ${res.status}`);
-                }
-                return res.json();
-              }
-              ).then(data => {
-                // console.log(data)
-                setShop(data);
-                // console.log(shop)
-              }
-              )
-          } ,[currentId]);
-
-        
-
     
       const [recommend, setRecommend] = useState([{"id": "0", "name": "a", "score": "3", "img": Image}]);
       const [loading_2, setLoading_2] = useState(true);
       const [error_2, setError_2] = useState(null);
+
       useEffect(() => {
-          fetch(`https://men-saku.com/recommend?title=${contents.title}`, { method: "GET",headers: headers})
+          fetch(`https://men-saku.com/recommend?title=${shop[0].name}`, { method: "GET",headers: headers})
                 .then(res => {
                   if (!res.ok) {
                     throw new Error(`HTTP error! Status: ${res.status}`);
@@ -127,7 +120,7 @@ function Detail() {
                   // console.log(error_2)
                 }
               )
-          } ,[currentId]);
+          } ,[shop]);
 
       const [shopimage, setShopimage] = useState([{"img": Image, "context": 'str'}]);
       const [loading_3, setLoading_3] = useState(true);
