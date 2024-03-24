@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Detail from "./components/Detail";
+import NotFound from "./components/NotFound";
 
 
 export const RouterConfig:React.VFC = () => {
@@ -11,7 +12,7 @@ export const RouterConfig:React.VFC = () => {
             <Route index element={<App />} />
             {/* <Route path="/" element={<App />} /> */}
             <Route path="/detail/:id" element={<Detail />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
         </BrowserRouter>
         </>

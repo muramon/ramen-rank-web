@@ -37,15 +37,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             return res.json();
           }
           ).then(data => {
-            console.log(data)
+            // console.log(data)
             setLoading(false);
-            console.log(loading)
+            // console.log(loading)
             setResult(data);
           },
           (error) => {
             setLoading(true);
             setError(error);
-            console.log(error)
+            // console.log(error)
           }
         )
     } ,[]);
@@ -68,14 +68,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                 return res.json();
                 }
                 ).then(data => {
-                console.log(data)
+                // console.log(data)
                 setResult(data);
-                console.log(result)
+                // console.log(result)
                 },
                 (error) => {
                 // setLoading(true);
                 // setError(error);
-                console.log(error)
+                // console.log(error)
                 }
             )
         };
@@ -103,7 +103,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
               event.preventDefault();
-              console.log("enterを押しました")
+              // console.log("enterを押しました")
               handleSearch();
             }}}
           />

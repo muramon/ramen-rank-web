@@ -55,7 +55,7 @@ function Detail() {
                                     
     useEffect(() => {
         if (prevIdRef.current !== currentId) {
-          console.log('ID changed:', currentId);
+          // console.log('ID changed:', currentId);
           // Update the previous id
           prevIdRef.current = currentId;
         fetch(`https://men-saku.com/detail?id=${currentId}`, { method: "GET",headers: headers})
@@ -66,18 +66,18 @@ function Detail() {
                 return res.json();
                 }
                 ).then(data => {
-                console.log(data)
+                // console.log(data)
                 setLoading(false);
-                // console.log(loading)
+                // // console.log(loading)
                 setDetail(data);
                 // setCenter([data.longitude, data.latitude]);
-                // console.log(center)
-                // console.log(detail)
+                // // console.log(center)
+                // // console.log(detail)
                 },
                 (error) => {
                 setLoading(true);
                 setError(error);
-                console.log(error)
+                // console.log(error)
                 }
             )
         }} ,[currentId]);
@@ -93,9 +93,9 @@ function Detail() {
                 return res.json();
               }
               ).then(data => {
-                console.log(data)
+                // console.log(data)
                 setShop(data);
-                console.log(shop)
+                // console.log(shop)
               }
               )
           } ,[currentId]);
@@ -115,16 +115,16 @@ function Detail() {
                   return res.json();
                 }
                 ).then(data => {
-                  console.log(data)
+                  // console.log(data)
                   setLoading_2(false);
-                  console.log(loading_2)
+                  // console.log(loading_2)
                   setRecommend(data);
-                  console.log(recommend)
+                  // console.log(recommend)
                 },
                 (error_2) => {
                   setLoading_2(true);
                   setError_2(error_2);
-                  console.log(error_2)
+                  // console.log(error_2)
                 }
               )
           } ,[currentId]);
@@ -141,16 +141,16 @@ function Detail() {
                   return res.json();
                 }
                 ).then(data => {
-                  console.log(data)
+                  // console.log(data)
                   setLoading_3(false);
-                  console.log(loading_3)
+                  // console.log(loading_3)
                   setShopimage(data);
-                  console.log(shopimage)
+                  // console.log(shopimage)
                 },
                 (error_3) => {
                   setLoading_2(true);
                   setError_2(error_3);
-                  console.log(error_3)
+                  // console.log(error_3)
                 }
               )
           } ,[currentId]);
